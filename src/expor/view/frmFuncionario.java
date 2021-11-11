@@ -4,6 +4,16 @@
  * and open the template in the editor.
  */
 package expor.view;
+
+import expor.dao.FuncionarioDAO;
+import expor.dao.NivelAcessoDAO;
+import expor.objects.Funcionario;
+import java.sql.ResultSet;
+import java.util.List;
+import java.util.Vector;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Jaime
@@ -24,13 +34,55 @@ public class frmFuncionario extends javax.swing.JFrame {
         tfPesquisar.setText("");
         tfRg.setText("");
         tfSenha.setText("");
-        tfSexo.setText("");
     }
+    
+    Vector<Integer> idNivelAcesso = new Vector<Integer>();
+    public void PreencherComboBoxNivelAcesso(){
+        try {
+            NivelAcessoDAO nDAO = new NivelAcessoDAO();
+            ResultSet rs = nDAO.ListarNivelAcesso();
+            
+            while (rs.next()) {
+                idNivelAcesso.addElement(rs.getInt(1));
+                cbxNivelAcesso.addItem(rs.getString(2));
+            }
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,"Error no PreencherComboBoForne: "+ e);
+        }
+    }
+    
     public void listar(){
+        FuncionarioDAO dao = new FuncionarioDAO();
+        List<Funcionario> lista = dao.listarFuncionario();
+        DefaultTableModel dados = (DefaultTableModel) tabelaFuncionario.getModel();
+        dados.setNumRows(0);
+        for(Funcionario f : lista){
+            dados.addRow(new Object[]{
+                f.getIdFuncionario(),
+                f.getNome(),
+                f.getCpf(),
+                f.getRg(),
+                f.getIdade(),
+                f.getSexo(),
+                f.getUf(),
+                f.getCidade(),
+                f.getBairro(),
+                f.getComplemento(),
+                f.getEndereco(),
+                f.getNumero(),
+                f.getNivelAceso(),
+                //f.getNivelAcesso().getIdNivelAcesso(),
+                f.getLogin(),
+                f.getSenha()
+            });
+        }
         
     }
+
     public frmFuncionario() {
         initComponents();
+        PreencherComboBoxNivelAcesso();
     }
 
     
@@ -69,7 +121,7 @@ public class frmFuncionario extends javax.swing.JFrame {
         cbxNivelAcesso = new javax.swing.JComboBox<>();
         tfLogin = new javax.swing.JTextField();
         tfSenha = new javax.swing.JTextField();
-        tfSexo = new javax.swing.JTextField();
+        cbxSexo = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         tfPesquisar = new javax.swing.JTextField();
@@ -83,6 +135,11 @@ public class frmFuncionario extends javax.swing.JFrame {
         btnInicio = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jTabbedPane1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -118,9 +175,12 @@ public class frmFuncionario extends javax.swing.JFrame {
 
         tfCodigo.setEditable(false);
 
-        cbxUf.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxUf.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
 
         cbxNivelAcesso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        cbxNivelAcesso.setSelectedIndex(-1);
+
+        cbxSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Masculino", "Feminino", " " }));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -164,10 +224,13 @@ public class frmFuncionario extends javax.swing.JFrame {
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel9)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel6)
-                                            .addComponent(tfSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addComponent(jLabel6)
+                                                .addGap(97, 97, 97))
+                                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addComponent(cbxSexo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGap(37, 37, 37)))
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel7)
                                             .addComponent(cbxUf, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -224,7 +287,7 @@ public class frmFuncionario extends javax.swing.JFrame {
                     .addComponent(tfRg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfIdade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbxUf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbxSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
@@ -260,6 +323,12 @@ public class frmFuncionario extends javax.swing.JFrame {
 
         jLabel16.setText("Pesquisar por nome:");
 
+        tfPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfPesquisarKeyPressed(evt);
+            }
+        });
+
         tabelaFuncionario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
@@ -271,6 +340,11 @@ public class frmFuncionario extends javax.swing.JFrame {
                 "Codigo", "Nome", "Cpf", "Rg", "Idade", "Sexo", "Uf", "Cidade", "Bairro", "Endereco", "Numero", "NivelAcesso", "Login", "Senha"
             }
         ));
+        tabelaFuncionario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaFuncionarioMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabelaFuncionario);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -395,25 +469,71 @@ public class frmFuncionario extends javax.swing.JFrame {
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         
-        
+        limparCamp();
         
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarMouseClicked
         
+        int CodigoNivelAcesso;
+        Funcionario obj = new Funcionario();
         
+        obj.setNome(tfNome.getText());
+        obj.setCpf(ftCpf.getText());
+        obj.setRg(tfRg.getText());
+        obj.setIdade(tfIdade.getText());
+        obj.setSexo(cbxSexo.getSelectedItem().toString());
+        obj.setUf(cbxUf.getSelectedItem().toString());
+        obj.setCidade(tfCidade.getText());
+        obj.setBairro(tfBairro.getText());
+        obj.setComplemento(tfComplemento.getText());
+        obj.setEndereco(tfEndereco.getText());
+        obj.setNumero(tfNumero.getText());
+        CodigoNivelAcesso = idNivelAcesso.get(cbxNivelAcesso.getSelectedIndex());
+        obj.setNivelAcesso(CodigoNivelAcesso);
+        obj.setLogin(tfLogin.getText());
+        obj.setSenha(tfSenha.getText());
+        obj.setIdFuncionario(Integer.parseInt(tfCodigo.getText()));
+        
+        FuncionarioDAO fdao = new FuncionarioDAO();
+        fdao.updateFuncionario(obj);
+                
         
     }//GEN-LAST:event_btnEditarMouseClicked
 
     private void btnSalvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarMouseClicked
         
+        int CodigoNivelAcesso;
+        Funcionario obj = new Funcionario();
         
+        obj.setNome(tfNome.getText());
+        obj.setCpf(ftCpf.getText());
+        obj.setRg(tfRg.getText());
+        obj.setIdade(tfIdade.getText());
+        obj.setSexo(cbxSexo.getSelectedItem().toString());
+        obj.setUf(cbxUf.getSelectedItem().toString());
+        obj.setCidade(tfCidade.getText());
+        obj.setBairro(tfBairro.getText());
+        obj.setComplemento(tfComplemento.getText());
+        obj.setEndereco(tfEndereco.getText());
+        obj.setNumero(tfNumero.getText());
+        CodigoNivelAcesso = idNivelAcesso.get(cbxNivelAcesso.getSelectedIndex());
+        obj.setNivelAcesso(CodigoNivelAcesso);
+        obj.setLogin(tfLogin.getText());
+        obj.setSenha(tfSenha.getText());
+        
+        FuncionarioDAO fdao = new FuncionarioDAO();
+        fdao.adicionarFuncionario(obj);
         
     }//GEN-LAST:event_btnSalvarMouseClicked
 
     private void btnExcluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExcluirMouseClicked
         
-        
+        Funcionario obj = new Funcionario();
+        obj.setIdFuncionario(Integer.parseInt(tfCodigo.getText()));
+        FuncionarioDAO fdao = new FuncionarioDAO();
+        fdao.deleteFuncionario(obj);
+                
         
     }//GEN-LAST:event_btnExcluirMouseClicked
 
@@ -422,6 +542,63 @@ public class frmFuncionario extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_btnInicioMouseClicked
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        
+        listar();
+        
+    }//GEN-LAST:event_formWindowActivated
+
+    private void tabelaFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaFuncionarioMouseClicked
+        
+        jTabbedPane1.setSelectedIndex(0);
+        tfCidade.setText(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(),0).toString());
+        tfNome.setText(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(),1).toString());
+        ftCpf.setText(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(),2).toString());
+        tfRg.setText(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(),3).toString());
+        tfIdade.setText(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(),4).toString());
+        cbxSexo.setSelectedItem(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(),5).toString());
+        cbxUf.setSelectedItem(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(),6).toString());
+        tfCidade.setText(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(),7).toString());
+        tfBairro.setText(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(),8).toString());
+        tfComplemento.setText(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(),9).toString());
+        tfEndereco.setText(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(),10).toString());
+        tfNumero.setText(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(),11).toString());
+        cbxNivelAcesso.setSelectedItem(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(),12).toString());
+        tfLogin.setText(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(),13).toString());
+        tfSenha.setText(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(),14).toString());
+        
+    }//GEN-LAST:event_tabelaFuncionarioMouseClicked
+
+    private void tfPesquisarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPesquisarKeyPressed
+        
+        String nome="%"+tfPesquisar.getText()+"%";
+        FuncionarioDAO fdao = new FuncionarioDAO();
+        List<Funcionario> list = fdao.buscarFuncionarioPorNome(nome);
+        DefaultTableModel dados = (DefaultTableModel) tabelaFuncionario.getModel();
+        dados.setNumRows(0);
+        
+        for(Funcionario f : list){
+            dados.addRow(new Object[]{
+                f.getIdFuncionario(),
+                f.getNome(),
+                f.getCpf(),
+                f.getRg(),
+                f.getIdade(),
+                f.getSexo(),
+                f.getUf(),
+                f.getCidade(),
+                f.getBairro(),
+                f.getComplemento(),
+                f.getEndereco(),
+                f.getNumero(),
+                f.getNivelAceso(),
+                f.getLogin(),
+                f.getSenha()
+            });
+        }
+        
+    }//GEN-LAST:event_tfPesquisarKeyPressed
 
     
     public static void main(String args[]) {
@@ -463,6 +640,7 @@ public class frmFuncionario extends javax.swing.JFrame {
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JComboBox<String> cbxNivelAcesso;
+    private javax.swing.JComboBox<String> cbxSexo;
     private javax.swing.JComboBox<String> cbxUf;
     private javax.swing.JFormattedTextField ftCpf;
     private javax.swing.JLabel jLabel1;
@@ -499,6 +677,5 @@ public class frmFuncionario extends javax.swing.JFrame {
     private javax.swing.JTextField tfPesquisar;
     private javax.swing.JTextField tfRg;
     private javax.swing.JTextField tfSenha;
-    private javax.swing.JTextField tfSexo;
     // End of variables declaration//GEN-END:variables
 }

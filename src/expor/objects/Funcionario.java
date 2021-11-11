@@ -5,6 +5,8 @@
  */
 package expor.objects;
 
+import expor.dao.NivelAcessoDAO;
+
 /**
  *Funcionario relação com nivelacesso (funcionario.nivelacesso <-> niveldeacesso.tiponivelacesso )
  * @author Jaime
@@ -23,10 +25,42 @@ public class Funcionario {
     private String complemento;
     private String endereco;
     private String numero;
-    private String NivelAcesso;
+    private NivelAcesso NivelAcesso;
+    private String nivelAceso;
     private String login;
     private String senha;
 
+    
+    public Funcionario(){
+        
+    }
+    public Funcionario(int id, String login, String senha, NivelAcesso nivelAcesso, String nome, String rg, String cpf, String endereco, String cep, String cidade, String uf, String numero, String bairro){
+        super();
+        this.idFuncionario = id;
+        this.login = login;
+        this.senha = senha;
+        this.NivelAcesso = NivelAcesso;
+        this.nome = nome;
+        this.rg = rg;
+        this.cpf= cpf;
+        this.cidade = cidade;
+        this.uf = uf;
+        this.numero = numero;
+        this.bairro = bairro;
+    }
+    
+    public NivelAcessoDAO ndao = new NivelAcessoDAO();
+
+    public String getNivelAceso() {
+        return nivelAceso;
+    }
+
+    public void setNivelAceso(String nivelAceso) {
+        this.nivelAceso = nivelAceso;
+    }
+    
+    
+    
     public String getRg() {
         return rg;
     }
@@ -125,13 +159,16 @@ public class Funcionario {
         this.numero = numero;
     }
 
-    public String getNivelAcesso() {
+    public NivelAcesso getNivelAcesso() {
         return NivelAcesso;
     }
 
-    public void setNivelAcesso(String NivelAcesso) {
+    public void setNivelAcesso(int id) {
+        NivelAcesso obj = ndao.nivelAcessoIdSearch(id);
         this.NivelAcesso = NivelAcesso;
     }
+
+
 
     public String getLogin() {
         return login;

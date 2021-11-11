@@ -466,6 +466,7 @@ public class frmClienteJuridico extends javax.swing.JFrame {
             obj.setEndereco(tfEndereco.getText());
             obj.setNumero(tfNumero.getText());
             obj.setIdCliJuridico(Integer.parseInt(tfCodigo.getText()));
+            
             ClienteJuridicoDAO cjDAO = new ClienteJuridicoDAO();
             cjDAO.updateClienteJuridico(obj);
         
