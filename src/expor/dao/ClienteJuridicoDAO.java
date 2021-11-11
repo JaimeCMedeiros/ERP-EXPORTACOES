@@ -60,8 +60,8 @@ public class ClienteJuridicoDAO {
     public void updateClienteJuridico(ClienteJuridico obj){
         try {
             String sql = "update clientesjuridico set nome=?, cnpj=?, ie=?, contato=?,"
-                    + "emailContato=?, idade=?, uf=?, cidade=?, bairro=?, complemento=?,"
-                    + "endereco=?, numero=? where id=?";
+                    + "cargoContato=?, emailContato=?, idade=?, uf=?, cidade=?, bairro=?, complemento=?,"
+                    + "endereco=?, numero=? where idClienteJuridico=?";
             PreparedStatement stm = con.prepareStatement(sql);
             stm.setString(1,obj.getNome());
             stm.setString(2,obj.getCnpj());

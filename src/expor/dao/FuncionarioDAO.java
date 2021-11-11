@@ -44,7 +44,7 @@ public class FuncionarioDAO {
             stm.setString(9, obj.getComplemento());
             stm.setString(10,obj.getEndereco());
             stm.setString(11, obj.getNumero());
-            stm.setString(12, obj.getNivelAcesso());
+            stm.setInt(12, obj.getNivelAcesso().getIdNivelAcesso());
             stm.setString(13, obj.getLogin());
             stm.setString(14, obj.getSenha());
             
@@ -75,7 +75,8 @@ public class FuncionarioDAO {
             stm.setString(9, obj.getComplemento());
             stm.setString(10,obj.getEndereco());
             stm.setString(11, obj.getNumero());
-            stm.setString(12, obj.getNivelAcesso());
+            stm.setInt(12, obj.getNivelAcesso().getIdNivelAcesso());
+            //stm.setString(12, obj.getNivelAcesso());
             stm.setString(13, obj.getLogin());
             stm.setString(14, obj.getSenha());
             stm.setInt(15, obj.getIdFuncionario());
@@ -131,7 +132,7 @@ public class FuncionarioDAO {
                     obj.setComplemento(rs.getString("complemento"));
                     obj.setEndereco(rs.getString("endereco"));
                     obj.setNumero(rs.getString("numero"));
-                    obj.setNivelAcesso(rs.getString("nivelAcesso"));
+                    obj.setNivelAceso(rs.getString("nivelAcesso"));
                     obj.setLogin(rs.getString("login"));
                     obj.setSenha(rs.getString("senha"));
                     lista.add(obj);
@@ -166,7 +167,7 @@ public class FuncionarioDAO {
                     obj.setComplemento(rs.getString("complemento"));
                     obj.setEndereco(rs.getString("endereco"));
                     obj.setNumero(rs.getString("numero"));
-                    obj.setNivelAcesso(rs.getString("nivelAcesso"));
+                    obj.setNivelAceso(rs.getString("nivelAcesso"));
                     obj.setLogin(rs.getString("login"));
                     obj.setSenha(rs.getString("senha"));
                     
@@ -202,7 +203,7 @@ public class FuncionarioDAO {
                     obj.setComplemento(rs.getString("complemento"));
                     obj.setEndereco(rs.getString("endereco"));
                     obj.setNumero(rs.getString("numero"));
-                    obj.setNivelAcesso(rs.getString("nivelAcesso"));
+                    obj.setNivelAceso(rs.getString("nivelAcesso"));
                     obj.setLogin(rs.getString("login"));
                     obj.setSenha(rs.getString("senha"));
                                  
