@@ -24,6 +24,7 @@ public class frmFuncionario extends javax.swing.JFrame {
     public void limparCamp(){
         tfBairro.setText("");
         tfCidade.setText("");
+        ftCpf.setText("");
         tfCodigo.setText("");
         tfComplemento.setText("");
         tfEndereco.setText("");
@@ -331,13 +332,13 @@ public class frmFuncionario extends javax.swing.JFrame {
 
         tabelaFuncionario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Codigo", "Nome", "Cpf", "Rg", "Idade", "Sexo", "Uf", "Cidade", "Bairro", "Endereco", "Numero", "NivelAcesso", "Login", "Senha"
+                "Codigo", "Nome", "Cpf", "Rg", "Idade", "Sexo", "Uf", "Cidade", "Bairro", "Complemento", "Endereco", "Numero", "NivelAcesso", "Login", "Senha"
             }
         ));
         tabelaFuncionario.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -552,7 +553,7 @@ public class frmFuncionario extends javax.swing.JFrame {
     private void tabelaFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaFuncionarioMouseClicked
         
         jTabbedPane1.setSelectedIndex(0);
-        tfCidade.setText(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(),0).toString());
+        tfCodigo.setText(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(),0).toString());
         tfNome.setText(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(),1).toString());
         ftCpf.setText(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(),2).toString());
         tfRg.setText(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(),3).toString());

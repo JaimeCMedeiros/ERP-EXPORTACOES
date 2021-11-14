@@ -93,7 +93,7 @@ public class FuncionarioDAO {
     
     public void deleteFuncionario(Funcionario obj){
         try {
-            String sql ="delete from funcionario where id=?";
+            String sql ="delete from funcionario where idFuncionario=?";
             
             PreparedStatement stm = con.prepareStatement(sql);
             stm.setInt(1,obj.getIdFuncionario());
