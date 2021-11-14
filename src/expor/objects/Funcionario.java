@@ -165,7 +165,7 @@ public class Funcionario {
 
     public void setNivelAcesso(int id) {
         NivelAcesso obj = ndao.nivelAcessoIdSearch(id);
-        this.NivelAcesso = NivelAcesso;
+        this.NivelAcesso = obj;
     }
 
 
