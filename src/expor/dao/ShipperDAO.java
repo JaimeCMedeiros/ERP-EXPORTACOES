@@ -115,4 +115,39 @@ public class ShipperDAO {
             return null;
         }
     }
+    
+    public ResultSet ListarShipper(){
+            
+            try {
+                String sql = "select * from shipper";
+                PreparedStatement stm = con.prepareStatement(sql);
+                ResultSet rs = stm.executeQuery();
+                return rs;
+                 
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,"Error no Listar shipper "+e);
+            return null;
+        }
+
+    }
+    
+     public Shipper shipperIdSearch(int id){
+        try {
+            
+            String sql ="select * from shipper where idShipper  = ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1,id);
+            ResultSet rs = stmt.executeQuery();
+            Shipper  obj = new Shipper();
+            
+            while(rs.next()){
+                    obj.setIdShipper(rs.getInt("idShipper"));
+                    obj.setNomeFantasia(rs.getString("nomeFantasia"));
+            }
+            return obj;
+        } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Erro ao buscar portos dao :"+e);
+                return null;
+        }
+    }
 }

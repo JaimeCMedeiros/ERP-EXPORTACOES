@@ -148,4 +148,23 @@ public class ContainersDAO {
         }
 
     }
+    public Containers containersIdSearch(int id){
+        try {
+            
+            String sql ="select * from containers where id = ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1,id);
+            ResultSet rs = stmt.executeQuery();
+            Containers  obj = new Containers();
+            
+            while(rs.next()){
+                    obj.setId(rs.getInt("id"));
+                    obj.setTipo(rs.getString("tipo"));
+            }
+            return obj;
+        } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Erro ao Buscar nivel de acesso dao :"+e);
+                return null;
+        }
+    }
 }

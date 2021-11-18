@@ -145,7 +145,6 @@ public class PortosDAO {
     }
     
     public ResultSet ListarPortos(){
-            //String sql = "select * from fornecedor orber by id";
             
             try {
                 String sql = "select * from portos";
@@ -158,5 +157,40 @@ public class PortosDAO {
             return null;
         }
 
+    }
+    
+    public ResultSet ListarP(){
+            
+            try {
+                String sql = "select * from portos";
+                PreparedStatement stm = con.prepareStatement(sql);
+                ResultSet rs = stm.executeQuery();
+                return rs;
+                 
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,"Error no Listar portos "+e);
+            return null;
+        }
+
+    }
+    
+    public Portos portosIdSearch(int id){
+        try {
+            
+            String sql ="select * from portos where idPortos = ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1,id);
+            ResultSet rs = stmt.executeQuery();
+            Portos  obj = new Portos();
+            
+            while(rs.next()){
+                    obj.setIdPortos(rs.getInt("idPortos"));
+                    obj.setNome(rs.getString("nome"));
+            }
+            return obj;
+        } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Erro ao buscar portos dao :"+e);
+                return null;
+        }
     }
 }

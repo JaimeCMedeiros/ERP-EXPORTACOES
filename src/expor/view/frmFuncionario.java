@@ -136,6 +136,7 @@ public class frmFuncionario extends javax.swing.JFrame {
         btnInicio = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Gerenciamento de Funcionario");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -377,6 +378,7 @@ public class frmFuncionario extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Listar", jPanel3);
 
+        jPanel1.setBackground(new java.awt.Color(153, 255, 153));
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         btnNovo.setText("Novo");
@@ -466,6 +468,7 @@ public class frmFuncionario extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
@@ -540,7 +543,9 @@ public class frmFuncionario extends javax.swing.JFrame {
 
     private void btnInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInicioMouseClicked
         
-        
+        frmInicio tela = new frmInicio();
+        tela.setVisible(true);
+        dispose(); //[51,0,153]
         
     }//GEN-LAST:event_btnInicioMouseClicked
 

@@ -114,13 +114,18 @@ public class frmClienteJuridico extends javax.swing.JFrame {
         btnInicio = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Gerenciamento de Clientes");
+        setBackground(new java.awt.Color(51, 0, 153));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
             }
         });
 
+        jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
         jTabbedPane1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setText("Codigo");
 
@@ -280,6 +285,8 @@ public class frmClienteJuridico extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Cadastro", jPanel2);
 
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel15.setText("Pesquisar:");
 
         tfPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -335,6 +342,7 @@ public class frmClienteJuridico extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Lista", jPanel3);
 
+        jPanel1.setBackground(new java.awt.Color(153, 255, 153));
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         btnSalvar.setText("Salvar");
@@ -424,6 +432,7 @@ public class frmClienteJuridico extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
@@ -489,7 +498,9 @@ public class frmClienteJuridico extends javax.swing.JFrame {
 
     private void btnInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInicioMouseClicked
        
-        
+        frmInicio tela = new frmInicio();
+        tela.setVisible(true);
+        dispose();
         
     }//GEN-LAST:event_btnInicioMouseClicked
 

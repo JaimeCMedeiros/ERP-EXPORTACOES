@@ -212,4 +212,39 @@ public class ClienteJuridicoDAO {
             return null;
         }
     }
+    
+        public ResultSet ListarClientes(){
+            
+            try {
+                String sql = "select * from clientesjuridico";
+                PreparedStatement stm = con.prepareStatement(sql);
+                ResultSet rs = stm.executeQuery();
+                return rs;
+                 
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,"Error no Listar portos "+e);
+            return null;
+        }
+
+    }
+    
+    public ClienteJuridico clienteIdSearch(int id){
+        try {
+            
+            String sql ="select * from clientesjuridico where idClienteJuridico = ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1,id);
+            ResultSet rs = stmt.executeQuery();
+            ClienteJuridico  obj = new ClienteJuridico();
+            
+            while(rs.next()){
+                    obj.setIdCliJuridico(rs.getInt("idClienteJuridico"));
+                    obj.setNome(rs.getString("nome"));
+            }
+            return obj;
+        } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Erro ao buscar portos dao :"+e);
+                return null;
+        }
+    }
 }
